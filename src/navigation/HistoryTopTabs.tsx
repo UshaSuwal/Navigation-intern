@@ -4,13 +4,7 @@ import AllTasksScreen from '../screens/History/AllTasksScreen';
 import IncompleteTasksScreen from '../screens/History/IncompleteTasksScreen';
 import CompletedTasksScreen from '../screens/History/CompletedTasksScreen';
 
-export type HistoryTabParamList = {
-  All: undefined;
-  Incomplete: undefined;
-  Completed: undefined;
-};
-
-const Tab = createMaterialTopTabNavigator<HistoryTabParamList>();
+const Tab = createMaterialTopTabNavigator();
 
 const HistoryTopTabs = () => {
   return (

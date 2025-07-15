@@ -8,34 +8,24 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { Task } from '../types/types';
-import { useNavigation } from '@react-navigation/native';
+import { addTask } from '../store/todoSlice';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { BottomTabParamList, RootStackParamList } from '../navigation/type';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/type';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
-type Props = BottomTabScreenProps<BottomTabParamList, 'Home'>;
-
-const HomeScreen = ({}: Props) => {
+const HomeScreen = () => {
+  const tasks = useAppSelector((state) => state.todos.tasks);
+  const dispatch = useAppDispatch();
   const [taskInput, setTaskInput] = useState('');
-  const [tasks, setTasks] = useState<Task[]>([]);
-
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const addTask = () => {
-    if (!taskInput.trim()) return;
-    const newTask: Task = {
-      id: Date.now().toString(),
-      title: taskInput,
-      completed: false,
-    };
-    setTasks((prev) => [...prev, newTask]);
-    setTaskInput('');
-  };
-
-  const handlePress = (task: Task) => {
-    navigation.navigate('TaskDetail', { task });
+  const handleAdd = () => {
+    if (taskInput.trim()) {
+      dispatch(addTask({ title: taskInput.trim() }));
+      setTaskInput('');
+    }
   };
 
   return (
@@ -46,13 +36,17 @@ const HomeScreen = ({}: Props) => {
         placeholder="Add a task"
         style={styles.input}
       />
-      <Button title="Add Task" onPress={addTask} />
+      <Button title="Add Task" onPress={handleAdd} />
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item)}>
-            <Text style={styles.task}>{item.title}</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('TaskDetail', { taskId: item.id })}
+          >
+            <Text style={styles.task}>
+              {item.title} {item.completed ? '✅' : ''}
+            </Text>
           </TouchableOpacity>
         )}
       />

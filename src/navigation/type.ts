@@ -1,13 +1,12 @@
-import { NavigatorScreenParams } from '@react-navigation/native';
-import { Task } from '../types/types';
+export type RootStackParamList = {
+  Tabs: undefined;
+  TaskDetail: {
+    taskId: string;
+  };
+};
 
 export type BottomTabParamList = {
   Home: undefined;
   History: undefined;
   Profile: undefined;
-};
-
-export type RootStackParamList = {
-  Tabs: NavigatorScreenParams<BottomTabParamList>; 
-  TaskDetail: { task: Task };
 };
