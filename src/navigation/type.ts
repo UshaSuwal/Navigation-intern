@@ -1,8 +1,6 @@
 export type RootStackParamList = {
   Tabs: undefined;
-  TaskDetail: {
-    taskId: string;
-  };
+  TaskDetail: { taskId: string };
 };
 
 export type BottomTabParamList = {

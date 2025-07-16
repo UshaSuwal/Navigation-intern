@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import TaskItem from '../../components/TaskItem';
-import { toggleTask } from '../../store/todoSlice';
+import { toggleTask, deleteTask } from '../../store/todoSlice';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/type';
@@ -21,6 +21,7 @@ const AllTasksScreen = () => {
           <TaskItem
             task={item}
             onToggle={(id) => dispatch(toggleTask({ id }))}
+            onDelete={(id) => dispatch(deleteTask({ id }))}
             onPress={() => navigation.navigate('TaskDetail', { taskId: item.id })}
           />
         )}
