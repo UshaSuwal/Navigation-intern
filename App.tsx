@@ -1,3 +1,16 @@
+// import React from 'react';
+// import { Provider } from 'react-redux';
+// import { store } from './src/store/store';
+// import { Counter } from './src/components/counter/Counter';
+
+// export default function App() {
+//   return (
+//     <Provider store={store}>
+//       <Counter/>
+//     </Provider>
+//   );
+// }
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from './src/store/store';
